@@ -1012,14 +1012,14 @@
                             color: '#6b7280',
                             marginBottom: '16px'
                         }}>
-                            Complete Token Library - Click any token to copy its CSS variable
+                            Design Foundations - Click any token to copy its CSS variable
                         </p>
                         <p style={{
                             fontSize: '14px',
                             color: '#9ca3af',
                             fontStyle: 'italic'
                         }}>
-                            Typography, spacing, borders, shading, and colors imported directly from your Figma design system
+                            Typography, spacing, borders, shadows, and colors imported directly from your Figma design system
                         </p>
                     </div>
 
@@ -1142,6 +1142,150 @@
                             description={description}
                         />
                     ))}
+
+                    {/* Component Gallery Section */}
+                    <div style={{
+                        marginTop: '60px',
+                        marginBottom: '40px'
+                    }}>
+                        <h2 style={{
+                            fontSize: '28px',
+                            fontWeight: '700',
+                            color: '#111827',
+                            marginBottom: '12px'
+                        }}>
+                            Components
+                        </h2>
+                        <p style={{
+                            fontSize: '16px',
+                            color: '#6b7280',
+                            marginBottom: '32px'
+                        }}>
+                            Interactive UI components built with the design tokens above. Click to view detailed examples and usage guidelines.
+                        </p>
+                        
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                            gap: '24px'
+                        }}>
+                            {/* Button Component Card */}
+                            <a href="components/buttons.html" style={{
+                                textDecoration: 'none',
+                                color: 'inherit'
+                            }}>
+                                <div style={{
+                                    padding: '32px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '12px',
+                                    border: '1px solid #e2e8f0',
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                    transition: 'all 0.2s ease',
+                                    cursor: 'pointer',
+                                    position: 'relative'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                                }}
+                                >
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        marginBottom: '16px'
+                                    }}>
+                                        <h3 style={{
+                                            fontSize: '18px',
+                                            fontWeight: '600',
+                                            color: '#111827',
+                                            margin: '0',
+                                            flex: 1
+                                        }}>
+                                            Buttons
+                                        </h3>
+                                        <span style={{
+                                            fontSize: '14px',
+                                            color: '#6b7280'
+                                        }}>
+                                            →
+                                        </span>
+                                    </div>
+                                    <p style={{
+                                        fontSize: '14px',
+                                        color: '#6b7280',
+                                        marginBottom: '24px',
+                                        lineHeight: '1.5'
+                                    }}>
+                                        Primary, secondary, and tertiary button components with multiple sizes and states.
+                                    </p>
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '12px',
+                                        alignItems: 'center'
+                                    }}>
+                                        <button style={{
+                                            fontFamily: 'var(--typography-font-family-base)',
+                                            fontWeight: 'var(--typography-font-weight-medium)',
+                                            fontSize: 'var(--typography-font-size-sm)',
+                                            height: '32px',
+                                            padding: '0 16px',
+                                            borderRadius: 'var(--border-radius-pill)',
+                                            border: 'none',
+                                            backgroundColor: 'var(--color-base-primary-50)',
+                                            color: 'var(--color-base-white)',
+                                            cursor: 'pointer',
+                                            pointerEvents: 'none'
+                                        }}>
+                                            Primary
+                                        </button>
+                                        <button disabled style={{
+                                            fontFamily: 'var(--typography-font-family-base)',
+                                            fontWeight: 'var(--typography-font-weight-medium)',
+                                            fontSize: 'var(--typography-font-size-sm)',
+                                            height: '32px',
+                                            padding: '0 16px',
+                                            borderRadius: 'var(--border-radius-pill)',
+                                            border: 'none',
+                                            backgroundColor: 'var(--color-neutral-secondary-90)',
+                                            color: 'var(--color-neutral-70)',
+                                            cursor: 'not-allowed',
+                                            pointerEvents: 'none'
+                                        }}>
+                                            Disabled
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            {/* Placeholder for future components */}
+                            <div style={{
+                                padding: '32px',
+                                backgroundColor: '#f8fafc',
+                                borderRadius: '12px',
+                                border: '2px dashed #cbd5e1',
+                                textAlign: 'center',
+                                color: '#64748b'
+                            }}>
+                                <h3 style={{
+                                    fontSize: '18px',
+                                    fontWeight: '600',
+                                    marginBottom: '8px'
+                                }}>
+                                    More Components
+                                </h3>
+                                <p style={{
+                                    fontSize: '14px',
+                                    marginBottom: '0'
+                                }}>
+                                    Forms, navigation, and other components coming soon...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div style={{
                         marginTop: '60px',
@@ -1156,21 +1300,21 @@
                             color: '#111827',
                             marginBottom: '12px'
                         }}>
-                            🎨 How to Use These Tokens
+                            🎨 Using Design Tokens & Components
                         </h3>
                         <div style={{
                             fontSize: '14px',
                             color: '#374151',
                             lineHeight: '1.6'
                         }}>
-                            <p style={{ marginBottom: '8px' }}>
-                                <strong>CSS Variables:</strong> Import <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>dist/css/variables.css</code> and use <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>var(--border-radius-md)</code>
+                            <p style={{ marginBottom: '12px' }}>
+                                <strong>Design Tokens:</strong> Click any token above to copy its CSS variable. Import <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>dist/css/variables.css</code> and use <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>var(--color-base-primary-50)</code>
                             </p>
-                            <p style={{ marginBottom: '8px' }}>
-                                <strong>JavaScript:</strong> Import from <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>dist/js/tokens.js</code>
+                            <p style={{ marginBottom: '12px' }}>
+                                <strong>React Components:</strong> Import from <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>@echopark/design-system</code> and use <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>&lt;PrimaryButton&gt;</code>
                             </p>
                             <p style={{ marginBottom: '0' }}>
-                                <strong>SCSS:</strong> Import <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>dist/scss/_variables.scss</code> and use <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>$border-radius-md</code>
+                                <strong>Build Process:</strong> Tokens are generated from Figma using Style Dictionary and automatically available as CSS variables, JavaScript, and SCSS.
                             </p>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 // Components
 export { ColorPalette } from './components/ColorPalette';
-export { Button } from './components/Button';
+export { PrimaryButton } from './components/PrimaryButton';
  
 // Tokens will be exported here once Style Dictionary builds them
 // export { tokens } from './tokens'; 
