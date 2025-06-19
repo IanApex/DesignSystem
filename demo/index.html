@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoPark Design System - Complete Token Library</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="../dist/css/variables.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState } = React;
+        
+        const ColorSwatch = ({ name, value, category }) => {
+            const [copied, setCopied] = useState(false);
+            
+            const copyToClipboard = () => {
+                navigator.clipboard.writeText(value);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+            };
+
+            return (
+                <div 
+                    onClick={copyToClipboard}
+                    style={{
+                        cursor: 'pointer',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'transform 0.2s ease',
+                        backgroundColor: 'white',
+                        position: 'relative'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    <div 
+                        style={{
+                            backgroundColor: value,
+                            height: '80px',
+                            width: '100%'
+                        }}
+                    />
+                    <div style={{
+                        padding: '12px'
+                    }}>
+                        <div style={{
+                            fontSize: '12px',
+                            fontWeight: '600',
+                            color: '#374151',
+                            marginBottom: '4px'
+                        }}>
+                            {name}
+                        </div>
+                        <div style={{
+                            fontSize: '11px',
+                            color: '#6b7280',
+                            fontFamily: 'monospace'
+                        }}>
+                            {value}
+                        </div>
+                    </div>
+                    {copied && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '500'
+                        }}>
+                            Copied!
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const BorderRadiusDemo = ({ name, value }) => {
+            const [copied, setCopied] = useState(false);
+            
+            const copyToClipboard = () => {
+                navigator.clipboard.writeText(`var(--border-radius-${name.toLowerCase().replace(' ', '-')})`);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+            };
+
+            return (
+                <div 
+                    onClick={copyToClipboard}
+                    style={{
+                        cursor: 'pointer',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'transform 0.2s ease',
+                        position: 'relative',
+                        textAlign: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    <div 
+                        style={{
+                            width: '64px',
+                            height: '64px',
+                            backgroundColor: '#000000',
+                            borderRadius: value,
+                            margin: '0 auto 12px',
+                            border: '1px solid #000000'
+                        }}
+                    />
+                    <div style={{
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#374151',
+                        marginBottom: '4px'
+                    }}>
+                        {name}
+                    </div>
+                    <div style={{
+                        fontSize: '11px',
+                        color: '#6b7280',
+                        fontFamily: 'monospace'
+                    }}>
+                        {value}
+                    </div>
+                    {copied && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '500'
+                        }}>
+                            Copied!
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const BorderWidthDemo = ({ name, value }) => {
+            const [copied, setCopied] = useState(false);
+            
+            const copyToClipboard = () => {
+                navigator.clipboard.writeText(`var(--border-width-${name.toLowerCase().replace(' ', '-')})`);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+            };
+
+            return (
+                <div 
+                    onClick={copyToClipboard}
+                    style={{
+                        cursor: 'pointer',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'transform 0.2s ease',
+                        position: 'relative',
+                        textAlign: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    <div 
+                        style={{
+                            width: '64px',
+                            height: '64px',
+                            backgroundColor: 'transparent',
+                            border: `${value} solid #000000`,
+                            margin: '0 auto 12px'
+                        }}
+                    />
+                    <div style={{
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#374151',
+                        marginBottom: '4px'
+                    }}>
+                        {name}
+                    </div>
+                    <div style={{
+                        fontSize: '11px',
+                        color: '#6b7280',
+                        fontFamily: 'monospace'
+                    }}>
+                        {value}
+                    </div>
+                    {copied && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '500'
+                        }}>
+                            Copied!
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const OpacityDemo = ({ name, value }) => {
+            const [copied, setCopied] = useState(false);
+            
+            const copyToClipboard = () => {
+                navigator.clipboard.writeText(`var(--opacity-level-${name.toLowerCase().replace(' ', '')})`);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+            };
+
+            return (
+                <div 
+                    onClick={copyToClipboard}
+                    style={{
+                        cursor: 'pointer',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'transform 0.2s ease',
+                        position: 'relative',
+                        textAlign: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    <div style={{
+                        position: 'relative',
+                        width: '64px',
+                        height: '64px',
+                        margin: '0 auto 12px',
+                        backgroundImage: 'repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 8px 8px'
+                    }}>
+                        <div 
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#000000',
+                                opacity: value
+                            }}
+                        />
+                    </div>
+                    <div style={{
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#374151',
+                        marginBottom: '4px'
+                    }}>
+                        {name}
+                    </div>
+                    <div style={{
+                        fontSize: '11px',
+                        color: '#6b7280',
+                        fontFamily: 'monospace'
+                    }}>
+                        {Math.round(value * 100)}%
+                    </div>
+                    {copied && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '500'
+                        }}>
+                            Copied!
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const ShadowDemo = ({ name, value }) => {
+            const [copied, setCopied] = useState(false);
+            
+            const copyToClipboard = () => {
+                navigator.clipboard.writeText(`var(--shadow-level-${name.split(' ')[1]})`);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+            };
+
+            return (
+                <div 
+                    onClick={copyToClipboard}
+                    style={{
+                        cursor: 'pointer',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        padding: '24px 16px',
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'transform 0.2s ease',
+                        position: 'relative',
+                        textAlign: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    <div 
+                        style={{
+                            width: '80px',
+                            height: '80px',
+                            backgroundColor: '#ffffff',
+                            borderRadius: '8px',
+                            boxShadow: value,
+                            margin: '0 auto 16px'
+                        }}
+                    />
+                    <div style={{
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#374151',
+                        marginBottom: '4px'
+                    }}>
+                        {name}
+                    </div>
+                    <div style={{
+                        fontSize: '10px',
+                        color: '#6b7280',
+                        fontFamily: 'monospace',
+                        wordBreak: 'break-all'
+                    }}>
+                        {value}
+                    </div>
+                    {copied && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '500'
+                        }}>
+                            Copied!
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const TypographyDemo = ({ name, styles, category, sampleText }) => {
+            const [copied, setCopied] = useState(false);
+            
+            const copyToClipboard = () => {
+                if (category === 'Text Styles') {
+                    navigator.clipboard.writeText(`var(--typography-text-styles-${name.toLowerCase().replace(' ', '-')})`);
+                } else {
+                    const tokenType = category.toLowerCase().replace(' ', '-');
+                    navigator.clipboard.writeText(`var(--typography-${tokenType}-${name.toLowerCase()})`);
+                }
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+            };
+
+            const renderTypographyExample = () => {
+                if (category === 'Text Styles') {
+                    return (
+                        <div style={{
+                            ...styles,
+                            margin: '16px 0',
+                            color: '#242C33'
+                        }}>
+                            {sampleText}
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '80px',
+                            fontSize: '24px',
+                            fontFamily: 'Roboto, sans-serif',
+                            color: '#242C33'
+                        }}>
+                            {category === 'Font Weight' ? (
+                                <span style={{ fontWeight: styles }}>Aa</span>
+                            ) : category === 'Font Size' ? (
+                                <span style={{ fontSize: styles }}>Aa</span>
+                            ) : category === 'Line Height' ? (
+                                <div style={{ lineHeight: styles, textAlign: 'center' }}>
+                                    <div>Line 1</div>
+                                    <div>Line 2</div>
+                                </div>
+                            ) : (
+                                <span>Aa</span>
+                            )}
+                        </div>
+                    );
+                }
+            };
+
+            return (
+                <div 
+                    onClick={copyToClipboard}
+                    style={{
+                        cursor: 'pointer',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        padding: category === 'Text Styles' ? '20px' : '16px',
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'transform 0.2s ease',
+                        position: 'relative',
+                        textAlign: category === 'Text Styles' ? 'left' : 'center',
+                        minHeight: category === 'Text Styles' ? 'auto' : '140px'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    {renderTypographyExample()}
+                    <div style={{
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#374151',
+                        marginBottom: '4px',
+                        marginTop: category === 'Text Styles' ? '16px' : '12px'
+                    }}>
+                        {name}
+                    </div>
+                    <div style={{
+                        fontSize: '11px',
+                        color: '#6b7280',
+                        fontFamily: 'monospace'
+                    }}>
+                        {category === 'Text Styles' ? (
+                            `${styles.fontSize} / ${styles.fontWeight} / ${styles.lineHeight}`
+                        ) : (
+                            typeof styles === 'object' ? JSON.stringify(styles) : styles
+                        )}
+                    </div>
+                    {copied && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '500'
+                        }}>
+                            Copied!
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const SpacingDemo = ({ name, value, type, category }) => {
+            const [copied, setCopied] = useState(false);
+            
+            const copyToClipboard = () => {
+                const spacingType = category.toLowerCase().replace(' ', '-');
+                navigator.clipboard.writeText(`var(--spacing-${spacingType}-${name.toLowerCase()})`);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+            };
+
+            const renderSpacingVisual = () => {
+                if (category === 'Stack Spacing') {
+                    // Vertical spacing demonstration
+                    return (
+                        <div style={{ 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            alignItems: 'center',
+                            height: '80px',
+                            justifyContent: 'center'
+                        }}>
+                            <div style={{
+                                width: '60px',
+                                height: '8px',
+                                backgroundColor: '#3e8500',
+                                borderRadius: '2px'
+                            }} />
+                            <div style={{
+                                width: '2px',
+                                height: value,
+                                backgroundColor: '#f42434',
+                                margin: '4px 0'
+                            }} />
+                            <div style={{
+                                width: '60px',
+                                height: '8px',
+                                backgroundColor: '#3e8500',
+                                borderRadius: '2px'
+                            }} />
+                        </div>
+                    );
+                } else if (category === 'Inline Spacing') {
+                    // Horizontal spacing demonstration
+                    return (
+                        <div style={{ 
+                            display: 'flex', 
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '80px'
+                        }}>
+                            <div style={{
+                                width: '8px',
+                                height: '60px',
+                                backgroundColor: '#3e8500',
+                                borderRadius: '2px'
+                            }} />
+                            <div style={{
+                                width: value,
+                                height: '2px',
+                                backgroundColor: '#f42434',
+                                margin: '0 4px'
+                            }} />
+                            <div style={{
+                                width: '8px',
+                                height: '60px',
+                                backgroundColor: '#3e8500',
+                                borderRadius: '2px'
+                            }} />
+                        </div>
+                    );
+                } else {
+                    // Inset spacing demonstration
+                    const isMultiValue = value.includes(' ');
+                    const padding = isMultiValue ? value : value;
+                    
+                    return (
+                        <div style={{ 
+                            display: 'flex', 
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '80px'
+                        }}>
+                            <div style={{
+                                border: '2px solid #f42434',
+                                borderRadius: '4px',
+                                position: 'relative',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <div style={{
+                                    padding: padding,
+                                    backgroundColor: '#e6f1f5',
+                                    borderRadius: '2px'
+                                }}>
+                                    <div style={{
+                                        width: '20px',
+                                        height: '20px',
+                                        backgroundColor: '#3e8500',
+                                        borderRadius: '2px'
+                                    }} />
+                                </div>
+                            </div>
+                        </div>
+                    );
+                }
+            };
+
+            return (
+                <div 
+                    onClick={copyToClipboard}
+                    style={{
+                        cursor: 'pointer',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'transform 0.2s ease',
+                        position: 'relative',
+                        textAlign: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    {renderSpacingVisual()}
+                    <div style={{
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#374151',
+                        marginBottom: '4px',
+                        marginTop: '12px'
+                    }}>
+                        {name}
+                    </div>
+                    <div style={{
+                        fontSize: '11px',
+                        color: '#6b7280',
+                        fontFamily: 'monospace'
+                    }}>
+                        {value}
+                    </div>
+                    {copied && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '500'
+                        }}>
+                            Copied!
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const TokenSection = ({ title, description, children }) => {
+            return (
+                <div style={{ marginBottom: '40px' }}>
+                    <h3 style={{
+                        fontSize: '20px',
+                        fontWeight: '600',
+                        color: '#111827',
+                        marginBottom: '8px'
+                    }}>
+                        {title}
+                    </h3>
+                    {description && (
+                        <p style={{
+                            fontSize: '14px',
+                            color: '#6b7280',
+                            marginBottom: '16px',
+                            maxWidth: '600px',
+                            lineHeight: '1.5'
+                        }}>
+                            {description}
+                        </p>
+                    )}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+                        gap: '16px'
+                    }}>
+                        {children}
+                    </div>
+                </div>
+            );
+        };
+
+        const ColorSection = ({ title, colors, description }) => {
+            return (
+                <TokenSection title={title} description={description}>
+                    {Object.entries(colors).map(([name, value]) => (
+                        <ColorSwatch
+                            key={name}
+                            name={name}
+                            value={value}
+                            category={title}
+                        />
+                    ))}
+                </TokenSection>
+            );
+        };
+
+        const DesignSystemDemo = () => {
+            // EchoPark Design System Colors from Figma
+            const colorCategories = {
+                'Base Colors': {
+                    colors: {
+                        'Primary 90': '#EAF5DC',
+                        'Primary 60': '#62A60A',
+                        'Primary 55': '#5C9C08',
+                        'Primary 50': '#3E8500',
+                        'Primary 40': '#326B00',
+                        'White': '#FFFFFF',
+                        'Park Gray 0': '#242C33'
+                    },
+                    description: 'Base colors form the foundation of the color palette, use sparingly on primary actions to ensure consistency and brand recognition.'
+                },
+                'Accent Colors': {
+                    colors: {
+                        'Accent 90': '#E6F1F5',
+                        'Accent 85': '#C8E0E9',
+                        'Accent 80': '#B2D4E1',
+                        'Accent 40': '#006FA6'
+                    },
+                    description: 'Accent colors are used sparingly to highlight important elements and actions, adding vibrancy and focus to the design.'
+                },
+                'Neutral Colors': {
+                    colors: {
+                        'Neutral 0': '#242C33',
+                        'Neutral 20': '#313D47',
+                        'Neutral 40': '#666B70',
+                        'Neutral 70': '#A2A6AB',
+                        'Neutral 80': '#BCBFC2',
+                        'Neutral 85': '#D4D7D9',
+                        'Neutral 90': '#E8E9EB',
+                        'Neutral 95': '#F4F5F7',
+                        'Neutral 100': '#FFFFFF'
+                    },
+                    description: 'Neutral colors provide balance and support for other colors in the palette, often used for backgrounds, borders, and text to maintain readability and contrast.'
+                },
+                'Feedback Colors': {
+                    colors: {
+                        'Warning 90': '#FFEBEC',
+                        'Warning 50': '#F42434',
+                        'Warning 40': '#B30715',
+                        'Alert 90': '#FEF6E7',
+                        'Alert 80': '#FACD46',
+                        'Alert 70': '#FF8500',
+                        'Alert 50': '#AC6000',
+                        'Accessibility 80': '#4095BF'
+                    },
+                    description: 'Feedback colors communicate the status and outcomes of user actions, using specific colors to indicate success, error, warning, or informational messages.'
+                }
+            };
+
+            // Border Radius tokens
+            const borderRadiusTokens = {
+                'None': '0px',
+                'SM': '4px',
+                'MD': '8px',
+                'LG': '16px',
+                'Pill': '500px',
+                'Circular': '50%'
+            };
+
+            // Border Width tokens
+            const borderWidthTokens = {
+                'None': '0px',
+                'Hairline': '1px',
+                'Thin': '2px',
+                'Thick': '4px',
+                'Heavy': '8px'
+            };
+
+            // Opacity tokens
+            const opacityTokens = {
+                'Semi Opaque': 0.8,
+                'Intense': 0.64,
+                'Medium': 0.32,
+                'Light': 0.16,
+                'Semi Transparent': 0.08
+            };
+
+            // Shadow tokens
+            const shadowTokens = {
+                'Level 1': '0px 2px 6px 0px rgba(0, 0, 0, 0.2)',
+                'Level 2': '0px 8px 24px 0px rgba(0, 0, 0, 0.16)',
+                'Level 3': '0px 16px 32px 0px rgba(0, 0, 0, 0.16)',
+                'Level 4': '0px 16px 48px 0px rgba(0, 0, 0, 0.24)'
+            };
+
+            // Spacing tokens
+            const spacingTokens = {
+                'Stack Spacing': {
+                    'Quarck': '4px',
+                    'Nano': '8px',
+                    'Micro': '12px',
+                    'XXXS': '16px',
+                    'XXS': '24px',
+                    'XS': '32px',
+                    'SM': '40px',
+                    'MD': '48px',
+                    'LG': '56px',
+                    'XL': '64px',
+                    'XXL': '80px',
+                    'XXXL': '120px',
+                    'Huge': '160px',
+                    'Giant': '200px'
+                },
+                'Inline Spacing': {
+                    'Quarck': '4px',
+                    'Nano': '8px',
+                    'Micro': '12px',
+                    'XXXS': '16px',
+                    'XXS': '24px',
+                    'XS': '32px',
+                    'SM': '40px',
+                    'MD': '48px',
+                    'LG': '56px',
+                    'XL': '64px',
+                    'XXL': '80px',
+                    'XXXL': '120px',
+                    'Huge': '160px',
+                    'Giant': '200px'
+                },
+                'Inset Spacing': {
+                    'Quarck': '4px',
+                    'Nano': '8px',
+                    'XS': '16px',
+                    'SM': '24px',
+                    'MD': '32px',
+                    'LG': '40px'
+                },
+                'Inset Squish': {
+                    'Quarck': '4px 8px',
+                    'Nano': '8px 16px',
+                    'XS': '16px 24px',
+                    'SM': '24px 32px',
+                    'MD': '32px 40px',
+                    'LG': '40px 48px'
+                },
+                'Inset Stretch': {
+                    'Quarck': '8px 4px',
+                    'Nano': '16px 8px',
+                    'XS': '24px 16px',
+                    'SM': '32px 24px',
+                    'MD': '40px 32px',
+                                         'LG': '40px 32px'
+                 }
+             };
+
+            // Typography tokens
+            const typographyTokens = {
+                'Font Weight': {
+                    'Light': '300',
+                    'Regular': '400',
+                    'Medium': '500',
+                    'Bold': '700'
+                },
+                'Font Size': {
+                    'XS': '12px',
+                    'SM': '14px',
+                    'Base': '16px',
+                    'LG': '18px',
+                    'XL': '22px',
+                    '2XL': '26px',
+                    '3XL': '32px',
+                    '4XL': '42px',
+                    '5XL': '64px'
+                },
+                'Line Height': {
+                    'Default': '100%',
+                    'XS': '110%',
+                    'SM': '120%',
+                    'MD': '140%',
+                    'LG': '150%'
+                },
+                'Text Styles': {
+                    'Heading 1': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '300',
+                        fontSize: '64px',
+                        lineHeight: '100%',
+                        letterSpacing: '0.8px'
+                    },
+                    'Heading 2': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '300',
+                        fontSize: '42px',
+                        lineHeight: '120%',
+                        letterSpacing: '0.4px'
+                    },
+                    'Heading 3': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '300',
+                        fontSize: '32px',
+                        lineHeight: '120%',
+                        letterSpacing: '0.4px'
+                    },
+                    'Heading 4': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '300',
+                        fontSize: '26px',
+                        lineHeight: '120%',
+                        letterSpacing: '0.2px'
+                    },
+                    'Heading 5': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '300',
+                        fontSize: '22px',
+                        lineHeight: '120%',
+                        letterSpacing: '0px'
+                    },
+                    'Subhead': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '700',
+                        fontSize: '18px',
+                        lineHeight: '140%',
+                        letterSpacing: '0px'
+                    },
+                    'Body Large': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '400',
+                        fontSize: '16px',
+                        lineHeight: '150%',
+                        letterSpacing: '0px'
+                    },
+                    'Body Small': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '400',
+                        fontSize: '14px',
+                        lineHeight: '150%',
+                        letterSpacing: '0px'
+                    },
+                    'Button Large': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '500',
+                        fontSize: '16px',
+                        lineHeight: '100%',
+                        letterSpacing: '0.4px'
+                    },
+                    'Button Small': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '500',
+                        fontSize: '14px',
+                        lineHeight: '100%',
+                        letterSpacing: '0.2px'
+                    },
+                    'Label': {
+                        fontFamily: 'Roboto, sans-serif',
+                        fontWeight: '400',
+                        fontSize: '12px',
+                        lineHeight: '150%',
+                        letterSpacing: '0px'
+                    }
+                }
+            };
+
+            return (
+                <div style={{
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                    padding: '24px'
+                }}>
+                    <div style={{ marginBottom: '40px' }}>
+                        <h1 style={{
+                            fontSize: '36px',
+                            fontWeight: '700',
+                            color: '#111827',
+                            marginBottom: '8px'
+                        }}>
+                            EchoPark Design System
+                        </h1>
+                        <p style={{
+                            fontSize: '18px',
+                            color: '#6b7280',
+                            marginBottom: '16px'
+                        }}>
+                            Complete Token Library - Click any token to copy its CSS variable
+                        </p>
+                        <p style={{
+                            fontSize: '14px',
+                            color: '#9ca3af',
+                            fontStyle: 'italic'
+                        }}>
+                            Typography, spacing, borders, shading, and colors imported directly from your Figma design system
+                        </p>
+                    </div>
+
+                    {/* Border Radius Section */}
+                    <TokenSection 
+                        title="Border Radius" 
+                        description="Border radius adjusts the curvature of element corners, creating either rounded or sharp edges to match the desired look and feel."
+                    >
+                        {Object.entries(borderRadiusTokens).map(([name, value]) => (
+                            <BorderRadiusDemo key={name} name={name} value={value} />
+                        ))}
+                    </TokenSection>
+
+                    {/* Border Width Section */}
+                    <TokenSection 
+                        title="Border Width" 
+                        description="Border width defines the thickness of element borders, impacting their prominence and visual clarity."
+                    >
+                        {Object.entries(borderWidthTokens).map(([name, value]) => (
+                            <BorderWidthDemo key={name} name={name} value={value} />
+                        ))}
+                    </TokenSection>
+
+                    {/* Opacity Section */}
+                    <TokenSection 
+                        title="Opacity Levels" 
+                        description="Opacity levels control element transparency, allowing for layered effects and visual depth within the UI."
+                    >
+                        {Object.entries(opacityTokens).map(([name, value]) => (
+                            <OpacityDemo key={name} name={name} value={value} />
+                        ))}
+                    </TokenSection>
+
+                    {/* Shadows Section */}
+                    <TokenSection 
+                        title="Drop Shadows" 
+                        description="Drop shadows add dimension and hierarchy by casting shadows beneath elements, enhancing the tactile feel of the interface."
+                    >
+                        {Object.entries(shadowTokens).map(([name, value]) => (
+                            <ShadowDemo key={name} name={name} value={value} />
+                        ))}
+                    </TokenSection>
+
+                    {/* Typography Sections */}
+                    {Object.entries(typographyTokens).map(([category, tokens]) => {
+                        const descriptions = {
+                            'Font Weight': 'Font weights define the thickness and visual weight of text, from light to bold, providing hierarchy and emphasis.',
+                            'Font Size': 'Font sizes establish a consistent scale for text elements, ensuring readability and visual balance across different content types.',
+                            'Line Height': 'Line height controls the vertical spacing between lines of text, affecting readability and visual rhythm of content.',
+                            'Text Styles': 'Predefined text styles combine font size, weight, line height, and spacing for consistent typography across components.'
+                        };
+
+                        const sampleTexts = {
+                            'Heading 1': 'Main Page Header',
+                            'Heading 2': 'Section Header',  
+                            'Heading 3': 'Subsection Header',
+                            'Heading 4': 'Card Title',
+                            'Heading 5': 'Component Title',
+                            'Subhead': 'Emphasized Text',
+                            'Body Large': 'This is the main body text used for paragraphs and content descriptions.',
+                            'Body Small': 'Secondary body text for additional information and details.',
+                            'Button Large': 'Primary Action',
+                            'Button Small': 'Secondary Action',
+                            'Label': 'Form Label'
+                        };
+                        
+                        return (
+                            <TokenSection 
+                                key={category}
+                                title={category} 
+                                description={descriptions[category]}
+                            >
+                                {Object.entries(tokens).map(([name, styles]) => (
+                                    <TypographyDemo 
+                                        key={`${category}-${name}`} 
+                                        name={name} 
+                                        styles={styles}
+                                        category={category}
+                                        sampleText={sampleTexts[name] || name}
+                                    />
+                                ))}
+                            </TokenSection>
+                        );
+                    })}
+
+                    {/* Spacing Sections */}
+                    {Object.entries(spacingTokens).map(([category, tokens]) => {
+                        const descriptions = {
+                            'Stack Spacing': 'Stack spacing defines the vertical space between components and UI elements, ensuring proper separation and readability in the layout.',
+                            'Inline Spacing': 'Inline spacing determines the horizontal space between components and UI elements, allowing for layered effects and visual flow within the UI.',
+                            'Inset Spacing': 'Inset spacing sets equal padding on all sides inside a component, providing consistent internal spacing.',
+                            'Inset Squish': 'Inset squish spacing uses smaller top/bottom padding compared to left/right, creating a compact vertical feel while maintaining horizontal breathing room.',
+                            'Inset Stretch': 'Inset stretch spacing uses larger top/bottom padding compared to left/right, creating more vertical space while keeping horizontal padding tight.'
+                        };
+                        
+                        return (
+                            <TokenSection 
+                                key={category}
+                                title={category} 
+                                description={descriptions[category]}
+                            >
+                                {Object.entries(tokens).map(([name, value]) => (
+                                    <SpacingDemo 
+                                        key={`${category}-${name}`} 
+                                        name={name} 
+                                        value={value} 
+                                        category={category}
+                                    />
+                                ))}
+                            </TokenSection>
+                        );
+                    })}
+
+                    {/* Color Sections */}
+                    {Object.entries(colorCategories).map(([category, { colors, description }]) => (
+                        <ColorSection
+                            key={category}
+                            title={category}
+                            colors={colors}
+                            description={description}
+                        />
+                    ))}
+                    
+                    <div style={{
+                        marginTop: '60px',
+                        padding: '24px',
+                        backgroundColor: '#f8fafc',
+                        borderRadius: '12px',
+                        border: '1px solid #e2e8f0'
+                    }}>
+                        <h3 style={{
+                            fontSize: '18px',
+                            fontWeight: '600',
+                            color: '#111827',
+                            marginBottom: '12px'
+                        }}>
+                            🎨 How to Use These Tokens
+                        </h3>
+                        <div style={{
+                            fontSize: '14px',
+                            color: '#374151',
+                            lineHeight: '1.6'
+                        }}>
+                            <p style={{ marginBottom: '8px' }}>
+                                <strong>CSS Variables:</strong> Import <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>dist/css/variables.css</code> and use <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>var(--border-radius-md)</code>
+                            </p>
+                            <p style={{ marginBottom: '8px' }}>
+                                <strong>JavaScript:</strong> Import from <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>dist/js/tokens.js</code>
+                            </p>
+                            <p style={{ marginBottom: '0' }}>
+                                <strong>SCSS:</strong> Import <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>dist/scss/_variables.scss</code> and use <code style={{backgroundColor: '#e5e7eb', padding: '2px 4px', borderRadius: '3px'}}>$border-radius-md</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<DesignSystemDemo />, document.getElementById('root'));
+    </script>
+</body>
+</html> 

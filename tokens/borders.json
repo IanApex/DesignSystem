@@ -1,0 +1,19 @@
+{
+  "border": {
+    "radius": {
+      "none": { "value": "0px", "type": "borderRadius" },
+      "sm": { "value": "4px", "type": "borderRadius" },
+      "md": { "value": "8px", "type": "borderRadius" },
+      "lg": { "value": "16px", "type": "borderRadius" },
+      "pill": { "value": "500px", "type": "borderRadius" },
+      "circular": { "value": "50%", "type": "borderRadius" }
+    },
+    "width": {
+      "none": { "value": "0px", "type": "borderWidth" },
+      "hairline": { "value": "1px", "type": "borderWidth" },
+      "thin": { "value": "2px", "type": "borderWidth" },
+      "thick": { "value": "4px", "type": "borderWidth" },
+      "heavy": { "value": "8px", "type": "borderWidth" }
+    }
+  }
+} 

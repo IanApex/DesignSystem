@@ -1,0 +1,171 @@
+{
+  "typography": {
+    "fontFamily": {
+      "base": { "value": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", "type": "fontFamily" }
+    },
+    "fontWeight": {
+      "light": { "value": "300", "type": "fontWeight" },
+      "regular": { "value": "400", "type": "fontWeight" },
+      "medium": { "value": "500", "type": "fontWeight" },
+      "bold": { "value": "700", "type": "fontWeight" }
+    },
+    "fontSize": {
+      "xs": { "value": "12px", "type": "fontSize" },
+      "sm": { "value": "14px", "type": "fontSize" },
+      "base": { "value": "16px", "type": "fontSize" },
+      "lg": { "value": "18px", "type": "fontSize" },
+      "xl": { "value": "22px", "type": "fontSize" },
+      "2xl": { "value": "26px", "type": "fontSize" },
+      "3xl": { "value": "32px", "type": "fontSize" },
+      "4xl": { "value": "42px", "type": "fontSize" },
+      "5xl": { "value": "64px", "type": "fontSize" }
+    },
+    "lineHeight": {
+      "default": { "value": "100%", "type": "lineHeight" },
+      "xs": { "value": "110%", "type": "lineHeight" },
+      "sm": { "value": "120%", "type": "lineHeight" },
+      "md": { "value": "140%", "type": "lineHeight" },
+      "lg": { "value": "150%", "type": "lineHeight" }
+    },
+    "letterSpacing": {
+      "none": { "value": "0", "type": "letterSpacing" },
+      "tight": { "value": "0.2px", "type": "letterSpacing" },
+      "normal": { "value": "0.4px", "type": "letterSpacing" },
+      "wide": { "value": "0.8px", "type": "letterSpacing" }
+    },
+    "textStyles": {
+      "heading-1": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "300",
+          "fontSize": "64px",
+          "lineHeight": "100%",
+          "letterSpacing": "0.8px"
+        },
+        "type": "typography",
+        "description": "Main page headers and hero text"
+      },
+      "heading-2": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "300",
+          "fontSize": "42px",
+          "lineHeight": "120%",
+          "letterSpacing": "0.4px"
+        },
+        "type": "typography",
+        "description": "Section headers and large titles"
+      },
+      "heading-3": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "300",
+          "fontSize": "32px",
+          "lineHeight": "120%",
+          "letterSpacing": "0.4px"
+        },
+        "type": "typography",
+        "description": "Subsection headers"
+      },
+      "heading-4": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "300",
+          "fontSize": "26px",
+          "lineHeight": "120%",
+          "letterSpacing": "0.2px"
+        },
+        "type": "typography",
+        "description": "Card titles and smaller headers"
+      },
+      "heading-5": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "300",
+          "fontSize": "22px",
+          "lineHeight": "120%",
+          "letterSpacing": "0"
+        },
+        "type": "typography",
+        "description": "Component titles and labels"
+      },
+      "subhead": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "700",
+          "fontSize": "18px",
+          "lineHeight": "140%",
+          "letterSpacing": "0"
+        },
+        "type": "typography",
+        "description": "Subheadings and emphasized text"
+      },
+      "body-large": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "400",
+          "fontSize": "16px",
+          "lineHeight": "150%",
+          "letterSpacing": "0"
+        },
+        "type": "typography",
+        "description": "Main body text and paragraphs"
+      },
+      "body-small": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "400",
+          "fontSize": "14px",
+          "lineHeight": "150%",
+          "letterSpacing": "0"
+        },
+        "type": "typography",
+        "description": "Secondary body text and descriptions"
+      },
+      "button-large": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "500",
+          "fontSize": "16px",
+          "lineHeight": "100%",
+          "letterSpacing": "0.4px"
+        },
+        "type": "typography",
+        "description": "Primary button text"
+      },
+      "button-small": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "500",
+          "fontSize": "14px",
+          "lineHeight": "100%",
+          "letterSpacing": "0.2px"
+        },
+        "type": "typography",
+        "description": "Secondary button text"
+      },
+      "label": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "400",
+          "fontSize": "12px",
+          "lineHeight": "150%",
+          "letterSpacing": "0"
+        },
+        "type": "typography",
+        "description": "Form labels, captions, and overlines"
+      },
+      "button": {
+        "value": {
+          "fontFamily": "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          "fontWeight": "500",
+          "fontSize": "16px",
+          "lineHeight": "100%",
+          "letterSpacing": "0.2px"
+        },
+        "type": "typography",
+        "description": "Primary CTA button text style"
+      }
+    }
+  }
+} 
