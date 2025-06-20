@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Inputs - EchoPark Design System</title>
+    <link rel="stylesheet" href="../../dist/css/variables.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--typography-font-family-base);
+            background-color: var(--color-base-white);
+            color: var(--color-base-parkGray0);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--color-base-primary-50);
+            color: var(--color-base-white);
+            padding: var(--spacing-inset-md);
+            margin-bottom: var(--spacing-stack-xl);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-inset-sm);
+        }
+
+        .nav-breadcrumb {
+            margin-bottom: var(--spacing-stack-sm);
+        }
+
+        .nav-breadcrumb a {
+            color: var(--color-base-white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        .section {
+            margin-bottom: var(--spacing-stack-xxl);
+        }
+
+        .section-title {
+            font-size: var(--typography-font-size-2xl);
+            font-weight: var(--typography-font-weight-light);
+            margin-bottom: var(--spacing-stack-md);
+            color: var(--color-base-primary-50);
+        }
+
+        .subsection {
+            margin-bottom: var(--spacing-stack-lg);
+        }
+
+        .subsection-title {
+            font-size: var(--typography-font-size-lg);
+            font-weight: var(--typography-font-weight-medium);
+            margin-bottom: var(--spacing-stack-sm);
+        }
+
+        .component-demo {
+            background-color: var(--color-neutral-100);
+            border: 1px solid var(--color-neutral-90);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-inset-lg);
+            margin-bottom: var(--spacing-stack-sm);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-inline-sm);
+            align-items: center;
+        }
+
+        .demo-item {
+            text-align: center;
+        }
+
+        .demo-label {
+            font-size: var(--typography-font-size-sm);
+            color: var(--color-neutral-40);
+            margin-bottom: var(--spacing-stack-nano);
+            font-weight: var(--typography-font-weight-medium);
+        }
+
+        /* Box Input Styles */
+        .box-input {
+            /* Base styles matching the React component */
+            font-family: var(--typography-font-family-base);
+            font-weight: var(--typography-font-weight-regular);
+            font-size: var(--typography-font-size-base);
+            line-height: 24px;
+            letter-spacing: var(--typography-letter-spacing-none);
+            
+            /* Layout - XS size (default) */
+            height: 48px;
+            padding: var(--spacing-inset-squish-nano); /* 8px 16px */
+            min-height: 48px;
+            min-width: 175px;
+            width: 246px;
+            
+            /* Shape and borders */
+            border-radius: var(--border-radius-md); /* 8px */
+            border: 1px solid var(--color-neutral-90);
+            
+            /* Layout behavior */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-inline-nano); /* 8px */
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+            
+            /* Interaction */
+            cursor: pointer;
+            user-select: none;
+            outline: none;
+            text-decoration: none;
+            
+            /* Transitions */
+            transition: all 0.2s ease-in-out;
+            
+            /* Colors - Default state */
+            background-color: var(--color-base-white);
+            color: var(--color-base-parkGray0);
+        }
+
+        /* State variations */
+        .box-input--hover {
+            background-color: var(--color-neutral-95);
+        }
+
+        .box-input--selected {
+            border: 2px solid var(--color-base-primary-50);
+        }
+
+        .box-input--focus-selected {
+            border: 3px solid var(--color-feedback-accessibility-80);
+        }
+
+        .box-input--disabled {
+            background-color: var(--color-neutral-95);
+            color: var(--color-neutral-70);
+            cursor: not-allowed;
+        }
+
+        .box-input:hover:not(.box-input--selected):not(.box-input--disabled) {
+            background-color: var(--color-neutral-95);
+        }
+
+        .box-input:focus {
+            outline: none;
+        }
+
+        .box-input:focus.box-input--selected {
+            border: 3px solid var(--color-feedback-accessibility-80);
+        }
+
+        /* SM Size Variant */
+        .box-input--sm {
+            height: 64px;
+            padding: var(--spacing-inset-sm); /* 24px all sides */
+            min-height: 64px;  
+            min-width: 140px;
+            width: 238px;
+        }
+
+        .code-block {
+            background-color: var(--color-neutral-95);
+            border: 1px solid var(--color-neutral-90);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-inset-sm);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: var(--typography-font-size-sm);
+            color: var(--color-neutral-20);
+            overflow-x: auto;
+            margin-top: var(--spacing-stack-sm);
+        }
+
+        .token-info {
+            background-color: var(--color-neutral-tertiary-95);
+            border-left: 4px solid var(--color-base-primary-50);
+            padding: var(--spacing-inset-sm);
+            margin: var(--spacing-stack-sm) 0;
+            font-size: var(--typography-font-size-sm);
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-stack-sm);
+        }
+
+        .specs-table th,
+        .specs-table td {
+            text-align: left;
+            padding: var(--spacing-inset-nano);
+            border-bottom: 1px solid var(--color-neutral-90);
+        }
+
+        .specs-table th {
+            background-color: var(--color-neutral-95);
+            font-weight: var(--typography-font-weight-medium);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <nav class="nav-breadcrumb">
+                <a href="../index.html">← Back to Design System</a>
+            </nav>
+            <h1>Box Input Components</h1>
+            <p>Interactive box input controls following EchoPark Design System tokens</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- XS Size Variants -->
+        <section class="section">
+            <h2 class="section-title">Box Input XS</h2>
+            <p>The box input component provides selectable options in a clean, accessible format. Built with design tokens for consistency.</p>
+
+            <div class="subsection">
+                <h3 class="subsection-title">States Overview</h3>
+                <div class="component-demo">
+                    <div class="demo-grid">
+                        <div class="demo-item">
+                            <div class="demo-label">Default</div>
+                            <button class="box-input" aria-pressed="false">
+                                Label
+                            </button>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-label">Hover</div>
+                            <button class="box-input box-input--hover" aria-pressed="false">
+                                Label
+                            </button>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-label">Selected</div>
+                            <button class="box-input box-input--selected" aria-pressed="true">
+                                Label
+                            </button>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-label">Focus Selected</div>
+                            <button class="box-input box-input--focus-selected" aria-pressed="true">
+                                Label
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="token-info">
+                    <strong>Design Tokens Used:</strong><br>
+                    Colors: <code>--color-base-white</code>, <code>--color-neutral-95</code>, <code>--color-base-primary-50</code>, <code>--color-feedback-accessibility-80</code><br>
+                    Spacing: <code>--spacing-inset-squish-nano</code><br>
+                    Border Radius: <code>--border-radius-md</code><br>
+                    Typography: <code>--typography-font-family-base</code>, <code>--typography-font-size-base</code>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Interactive Demo</h3>
+                <div class="component-demo">
+                    <p style="margin-bottom: var(--spacing-stack-sm);">Try clicking the options below:</p>
+                    <div style="display: flex; gap: var(--spacing-inline-sm); flex-wrap: wrap;">
+                        <button class="box-input" onclick="toggleSelection(this)" aria-pressed="false">
+                            Option A
+                        </button>
+                        <button class="box-input" onclick="toggleSelection(this)" aria-pressed="false">
+                            Option B
+                        </button>
+                        <button class="box-input" onclick="toggleSelection(this)" aria-pressed="false">
+                            Option C
+                        </button>
+                        <button class="box-input box-input--disabled" disabled aria-pressed="false">
+                            Disabled
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Specifications</h3>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                            <th>Token</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Height</td>
+                            <td>48px</td>
+                            <td>Fixed (XS size)</td>
+                        </tr>
+                        <tr>
+                            <td>Min Width</td>
+                            <td>175px</td>
+                            <td>Fixed</td>
+                        </tr>
+                        <tr>
+                            <td>Padding</td>
+                            <td>8px 16px</td>
+                            <td><code>--spacing-inset-squish-nano</code></td>
+                        </tr>
+                        <tr>
+                            <td>Border Radius</td>
+                            <td>8px</td>
+                            <td><code>--border-radius-md</code></td>
+                        </tr>
+                        <tr>
+                            <td>Font Size</td>
+                            <td>16px</td>
+                            <td><code>--typography-font-size-base</code></td>
+                        </tr>
+                        <tr>
+                            <td>Line Height</td>
+                            <td>24px (150%)</td>
+                            <td>Fixed</td>
+                        </tr>
+                        <tr>
+                            <td>Default Border</td>
+                            <td>1px solid</td>
+                            <td><code>--color-neutral-90</code></td>
+                        </tr>
+                        <tr>
+                            <td>Selected Border</td>
+                            <td>2px solid</td>
+                            <td><code>--color-base-primary-50</code></td>
+                        </tr>
+                        <tr>
+                            <td>Focus Border</td>
+                            <td>3px solid</td>
+                            <td><code>--color-feedback-accessibility-80</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Usage Code</h3>
+                <div class="code-block">
+&lt;!-- HTML --&gt;
+&lt;button class="box-input" aria-pressed="false"&gt;
+    Label
+&lt;/button&gt;
+
+&lt;!-- React Component --&gt;
+import { BoxInput } from '@echopark/design-system';
+
+&lt;BoxInput 
+    size="xs" 
+    selected={false} 
+    onClick={handleClick}
+    aria-label="Select option"
+&gt;
+    Label
+&lt;/BoxInput&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- SM Size Variants -->
+        <section class="section">
+            <h2 class="section-title">Box Input SM</h2>
+            <p>The small (SM) variant provides more prominent selection options with increased height and padding, following the Figma design specifications.</p>
+
+            <div class="subsection">
+                <h3 class="subsection-title">States Overview</h3>
+                <div class="component-demo">
+                    <div class="demo-grid">
+                        <div class="demo-item">
+                            <div class="demo-label">Default</div>
+                            <button class="box-input box-input--sm" aria-pressed="false">
+                                Label
+                            </button>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-label">Hover</div>
+                            <button class="box-input box-input--sm box-input--hover" aria-pressed="false">
+                                Label
+                            </button>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-label">Selected</div>
+                            <button class="box-input box-input--sm box-input--selected" aria-pressed="true">
+                                Label
+                            </button>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-label">Focus Selected</div>
+                            <button class="box-input box-input--sm box-input--focus-selected" aria-pressed="true">
+                                Label
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="token-info">
+                    <strong>Design Tokens Used:</strong><br>
+                    Colors: <code>--color-base-white</code>, <code>--color-neutral-95</code>, <code>--color-base-primary-50</code>, <code>--color-feedback-accessibility-80</code><br>
+                    Spacing: <code>--spacing-inset-sm</code> (24px all sides)<br>
+                    Border Radius: <code>--border-radius-md</code><br>
+                    Typography: <code>--typography-font-family-base</code>, <code>--typography-font-size-base</code>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Interactive Demo</h3>
+                <div class="component-demo">
+                    <p style="margin-bottom: var(--spacing-stack-sm);">Try clicking the SM variant options below:</p>
+                    <div style="display: flex; gap: var(--spacing-inline-sm); flex-wrap: wrap;">
+                        <button class="box-input box-input--sm" onclick="toggleSelection(this)" aria-pressed="false">
+                            Option A
+                        </button>
+                        <button class="box-input box-input--sm" onclick="toggleSelection(this)" aria-pressed="false">
+                            Option B
+                        </button>
+                        <button class="box-input box-input--sm" onclick="toggleSelection(this)" aria-pressed="false">
+                            Option C
+                        </button>
+                        <button class="box-input box-input--sm box-input--disabled" disabled aria-pressed="false">
+                            Disabled
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Specifications</h3>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                            <th>Token</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Height</td>
+                            <td>64px</td>
+                            <td>Fixed (SM size)</td>
+                        </tr>
+                        <tr>
+                            <td>Min Width</td>
+                            <td>140px</td>
+                            <td>Fixed</td>
+                        </tr>
+                        <tr>
+                            <td>Default Width</td>
+                            <td>238px</td>
+                            <td>Fixed (from Figma)</td>
+                        </tr>
+                        <tr>
+                            <td>Padding</td>
+                            <td>24px (all sides)</td>
+                            <td><code>--spacing-inset-sm</code></td>
+                        </tr>
+                        <tr>
+                            <td>Border Radius</td>
+                            <td>8px</td>
+                            <td><code>--border-radius-md</code></td>
+                        </tr>
+                        <tr>
+                            <td>Font Size</td>
+                            <td>16px</td>
+                            <td><code>--typography-font-size-base</code></td>
+                        </tr>
+                        <tr>
+                            <td>Line Height</td>
+                            <td>24px (150%)</td>
+                            <td>Fixed</td>
+                        </tr>
+                        <tr>
+                            <td>Default Border</td>
+                            <td>1px solid</td>
+                            <td><code>--color-neutral-90</code></td>
+                        </tr>
+                        <tr>
+                            <td>Selected Border</td>
+                            <td>2px solid</td>
+                            <td><code>--color-base-primary-50</code></td>
+                        </tr>
+                        <tr>
+                            <td>Focus Border</td>
+                            <td>3px solid</td>
+                            <td><code>--color-feedback-accessibility-80</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Usage Code</h3>
+                <div class="code-block">
+&lt;!-- HTML --&gt;
+&lt;button class="box-input box-input--sm" aria-pressed="false"&gt;
+    Label
+&lt;/button&gt;
+
+&lt;!-- React Component --&gt;
+import { BoxInput } from '@echopark/design-system';
+
+&lt;BoxInput 
+    size="sm" 
+    selected={false} 
+    onClick={handleClick}
+    aria-label="Select option"
+&gt;
+    Label
+&lt;/BoxInput&gt;
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleSelection(button) {
+            const isPressed = button.getAttribute('aria-pressed') === 'true';
+            
+            // Reset all buttons in the same group
+            const buttons = button.parentElement.querySelectorAll('.box-input:not([disabled])');
+            buttons.forEach(btn => {
+                btn.setAttribute('aria-pressed', 'false');
+                btn.classList.remove('box-input--selected');
+            });
+            
+            // Toggle the clicked button
+            if (!isPressed) {
+                button.setAttribute('aria-pressed', 'true');
+                button.classList.add('box-input--selected');
+            }
+        }
+
+        // Add focus handling for accessibility
+        document.querySelectorAll('.box-input').forEach(button => {
+            button.addEventListener('focus', function() {
+                if (this.classList.contains('box-input--selected')) {
+                    this.classList.add('box-input--focus-selected');
+                }
+            });
+
+            button.addEventListener('blur', function() {
+                this.classList.remove('box-input--focus-selected');
+            });
+        });
+    </script>
+</body>
+</html> 
