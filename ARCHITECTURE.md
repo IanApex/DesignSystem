@@ -63,6 +63,13 @@ React components that consume design tokens:
 - **Features**: Click-to-copy color values, categorized color display
 - **Token Consumption**: Hard-coded color values organized by categories
 
+#### **Slider Component** (`Slider.tsx`)
+- **Props**: `min`, `max`, `value`, `defaultValue`, `step`, `disabled`, `minLabel`, `maxLabel`, `onChange`, `onChangeCommitted`
+- **Token Consumption**: CSS custom properties via `var()` - fully token-integrated using color, spacing, and border tokens
+- **States**: Normal, focused, disabled, and dragging states with token-based styling variations
+- **Accessibility**: ARIA slider role, keyboard navigation (arrow keys, Home/End, Page Up/Down), focus indicators
+- **Features**: Mouse and keyboard interaction, controlled/uncontrolled modes, custom range and step size
+
 ### 4. **Demo Layer** (Interactive Documentation)
 **Location**: `demo/` - Hybrid structure separating foundations from components
 
@@ -85,7 +92,8 @@ React components that consume design tokens:
 demo/
 ├── index.html              # Design Foundations (style guide)
 ├── components/
-│   └── buttons.html        # Button components with detailed examples
+│   ├── buttons.html        # Button components with detailed examples
+│   └── sliders.html        # Slider components with detailed examples
 └── README.md              # Documentation structure guide
 ```
 
@@ -123,15 +131,25 @@ Generated Files:
 └── src/tokens.ts (TypeScript Constants)
         ↓
 Components consume tokens:
-├── src/components/Button.tsx
+├── src/components/PrimaryButton.tsx
 ├── src/components/ColorPalette.tsx
+├── src/components/Slider.tsx
 └── demo/index.html
 ```
 
 ## Build System
 
+### **⚠️ REQUIRED SETUP STEP**
+**Before running demos or using components, you MUST build the design tokens:**
+
+```bash
+npm run build:tokens
+```
+
+This generates the CSS variables that all components depend on. **The demo will not work without this step.**
+
 **Package Scripts**:
-- `npm run build:tokens` - Transforms tokens using Style Dictionary
+- `npm run build:tokens` - **REQUIRED FIRST** - Transforms tokens using Style Dictionary
 - `npm run build` - Builds React components using Rollup
 - `npm run dev` - Development mode with file watching
 
@@ -139,6 +157,12 @@ Components consume tokens:
 - **Style Dictionary**: Token transformation engine
 - **React/TypeScript**: Component development
 - **Rollup**: Bundle components for distribution
+
+### **Development Workflow**
+1. **First time setup**: `npm run build:tokens`
+2. **After token changes**: `npm run build:tokens`
+3. **Component development**: `npm run dev`
+4. **Before deployment**: `npm run build`
 
 ## Token Consumption Patterns
 
@@ -254,4 +278,21 @@ Direct connection between Figma design system and code implementation through st
 4. Add examples to demo if needed
 
 ### **Updating Architecture**
-Always update this ARCHITECTURE.md file when making structural changes to ensure documentation stays current. 
+Always update this ARCHITECTURE.md file when making structural changes to ensure documentation stays current.
+
+## Troubleshooting
+
+### **Components/Demos Not Working**
+1. **CSS Variables Missing**: Run `npm run build:tokens` first
+2. **Styles Not Applied**: Check that `dist/css/variables.css` exists and is loaded
+3. **Demo Pages Blank**: Ensure tokens are built and CSS file path is correct
+
+### **Common Issues**
+- **Unstyled Components**: Missing token build step
+- **Console Errors**: Check CSS variable references match generated tokens  
+- **Demo Not Interactive**: Verify JavaScript is loading properly
+
+### **Verification Steps**
+1. Check `dist/css/variables.css` exists (should be ~149 lines)
+2. Verify CSS variables load in browser dev tools
+3. Confirm no console errors in demo pages 

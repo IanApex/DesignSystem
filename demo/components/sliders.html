@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Component Example</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="../../dist/css/variables.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: var(--typography-font-family-base);
+            background-color: #f8fafc;
+            padding: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .example-section {
+            background: white;
+            padding: 32px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .example-code {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-top: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .value-display {
+            background: var(--color-neutral-95);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: var(--typography-font-weight-medium);
+            color: var(--color-neutral-0);
+            margin-top: 12px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav style="margin-bottom: 32px;">
+            <a href="../index.html" style="
+                color: var(--color-base-primary-50);
+                text-decoration: none;
+                font-weight: var(--typography-font-weight-medium);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+            ">
+                ← Back to Foundations
+            </a>
+        </nav>
+        
+        <h1 style="color: var(--color-neutral-0); margin-bottom: 8px;">Slider Components</h1>
+        <p style="color: var(--color-neutral-40); margin-bottom: 40px;">
+            Interactive examples of slider components built with design tokens.
+        </p>
+
+        <div id="root"></div>
+    </div>
+    
+    <script type="text/babel">
+        const { useState, useRef, useCallback, useEffect } = React;
+        
+        // Interactive Slider Component
+        const Slider = ({ 
+            value: controlledValue, 
+            defaultValue = 50, 
+            onChange, 
+            onChangeCommitted,
+            disabled = false, 
+            min = 0, 
+            max = 100, 
+            step = 1,
+            minLabel, 
+            maxLabel 
+        }) => {
+            const [internalValue, setInternalValue] = useState(controlledValue ?? defaultValue);
+            const [isDragging, setIsDragging] = useState(false);
+            const [isFocused, setIsFocused] = useState(false);
+            const [isHovered, setIsHovered] = useState(false);
+            const sliderRef = useRef(null);
+            
+            const isControlled = controlledValue !== undefined;
+            const currentValue = isControlled ? controlledValue : internalValue;
+            const percentage = ((currentValue - min) / (max - min)) * 100;
+            
+            const updateValue = useCallback((newValue) => {
+                const clampedValue = Math.max(min, Math.min(max, newValue));
+                const steppedValue = Math.round(clampedValue / step) * step;
+                
+                if (!isControlled) {
+                    setInternalValue(steppedValue);
+                }
+                
+                onChange?.(steppedValue);
+            }, [min, max, step, onChange, isControlled]);
+
+            const getValueFromPosition = useCallback((clientX) => {
+                if (!sliderRef.current) return currentValue;
+                
+                const rect = sliderRef.current.getBoundingClientRect();
+                const position = (clientX - rect.left) / rect.width;
+                const newValue = min + (position * (max - min));
+                return newValue;
+            }, [min, max, currentValue]);
+
+            const handleMouseDown = (event) => {
+                if (disabled) return;
+                
+                event.preventDefault();
+                const newValue = getValueFromPosition(event.clientX);
+                updateValue(newValue);
+                setIsDragging(true);
+                
+                // Capture mouse for dragging
+                if (event.target.setPointerCapture) {
+                    event.target.setPointerCapture(event.pointerId);
+                }
+            };
+
+            const handleKeyDown = (event) => {
+                if (disabled) return;
+
+                let newValue = currentValue;
+                
+                switch (event.key) {
+                    case 'ArrowRight':
+                    case 'ArrowUp':
+                        event.preventDefault();
+                        newValue = Math.min(max, currentValue + step);
+                        break;
+                    case 'ArrowLeft':
+                    case 'ArrowDown':
+                        event.preventDefault();
+                        newValue = Math.max(min, currentValue - step);
+                        break;
+                    case 'Home':
+                        event.preventDefault();
+                        newValue = min;
+                        break;
+                    case 'End':
+                        event.preventDefault();
+                        newValue = max;
+                        break;
+                    case 'PageUp':
+                        event.preventDefault();
+                        newValue = Math.min(max, currentValue + step * 10);
+                        break;
+                    case 'PageDown':
+                        event.preventDefault();
+                        newValue = Math.max(min, currentValue - step * 10);
+                        break;
+                    default:
+                        return;
+                }
+                
+                updateValue(newValue);
+            };
+
+            // Mouse move and up handlers
+            useEffect(() => {
+                if (!isDragging) return;
+
+                const handleMouseMove = (event) => {
+                    event.preventDefault();
+                    const newValue = getValueFromPosition(event.clientX);
+                    updateValue(newValue);
+                };
+
+                const handleMouseUp = (event) => {
+                    event.preventDefault();
+                    setIsDragging(false);
+                    onChangeCommitted?.(currentValue);
+                    
+                    // Release pointer capture
+                    if (event.target && event.target.releasePointerCapture) {
+                        event.target.releasePointerCapture(event.pointerId);
+                    }
+                };
+
+                // Use both mouse and pointer events for better cross-browser support
+                document.addEventListener('mousemove', handleMouseMove, { passive: false });
+                document.addEventListener('mouseup', handleMouseUp, { passive: false });
+                document.addEventListener('pointermove', handleMouseMove, { passive: false });
+                document.addEventListener('pointerup', handleMouseUp, { passive: false });
+
+                return () => {
+                    document.removeEventListener('mousemove', handleMouseMove);
+                    document.removeEventListener('mouseup', handleMouseUp);
+                    document.removeEventListener('pointermove', handleMouseMove);
+                    document.removeEventListener('pointerup', handleMouseUp);
+                };
+            }, [isDragging, getValueFromPosition, updateValue, onChangeCommitted, currentValue]);
+            
+            const containerStyles = {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: '8px',
+            };
+            
+            // Determine colors based on state (unified across all elements)
+            const getSliderColor = () => {
+                if (disabled) return 'var(--color-neutral-70)';
+                if (isDragging) return 'var(--color-base-primary-60)'; // lighter green when pressed
+                if (isHovered) return 'var(--color-base-primary-50)'; // primary green on hover
+                return 'var(--color-neutral-20)'; // neutral-20 by default
+            };
+
+            const trackStyles = {
+                position: 'relative',
+                width: '279px',
+                height: '4px',
+                backgroundColor: getSliderColor(),
+                borderRadius: '11px',
+                cursor: disabled ? 'not-allowed' : (isDragging ? 'grabbing' : 'pointer'),
+                touchAction: 'none',
+                userSelect: 'none',
+                transition: isDragging ? 'none' : 'all 0.2s ease',
+            };
+            
+            const progressStyles = {
+                position: 'absolute',
+                height: '100%',
+                width: `${percentage}%`,
+                backgroundColor: getSliderColor(),
+                borderRadius: '11px',
+                transition: isDragging ? 'none' : 'width 0.2s ease',
+            };
+            
+            const thumbStyles = {
+                position: 'absolute',
+                top: '50%',
+                left: `${percentage}%`,
+                transform: 'translate(-50%, -50%)',
+                width: '24px',
+                height: '24px',
+                backgroundColor: getSliderColor(),
+                borderRadius: '50%',
+                border: 'none', // Remove white border, make it filled
+                cursor: disabled ? 'not-allowed' : (isDragging ? 'grabbing' : 'grab'),
+                boxShadow: isFocused ? '0 0 0 3px var(--color-feedback-accessibility-80)' : '0 2px 4px rgba(0,0,0,0.1)',
+                transition: isDragging ? 'none' : 'all 0.2s ease',
+            };
+            
+            const labelStyles = {
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '279px',
+                fontSize: '14px',
+                color: 'var(--color-neutral-40)',
+            };
+            
+            return (
+                                <div 
+                    style={containerStyles}
+                    onMouseEnter={() => !disabled && setIsHovered(true)}
+                    onMouseLeave={() => !disabled && setIsHovered(false)}
+                >
+                    <div 
+                        ref={sliderRef}
+                        style={trackStyles}
+                        tabIndex={disabled ? -1 : 0}
+                        onMouseDown={handleMouseDown}
+                        onPointerDown={handleMouseDown}
+                        onKeyDown={handleKeyDown}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        role="slider"
+                        aria-valuemin={min}
+                        aria-valuemax={max}
+                        aria-valuenow={currentValue}
+                        aria-disabled={disabled}
+                    >
+                        <div style={progressStyles} />
+                        <div 
+                            style={thumbStyles}
+                            onMouseDown={(e) => {
+                                // Don't stop propagation - let the track handle it
+                                // e.stopPropagation();
+                            }}
+                        >
+                            {/* Filled circle - no inner white circle needed */}
+                        </div>
+                    </div>
+                    {(minLabel || maxLabel) && (
+                        <div style={labelStyles}>
+                            <span>{minLabel || min}</span>
+                            <span>{maxLabel || max}</span>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+        
+        const SliderExamples = () => {
+            const [basicValue, setBasicValue] = useState(25);
+            const [rangeValue, setRangeValue] = useState(750);
+            const [stepValue, setStepValue] = useState(50);
+            const [disabledValue] = useState(60);
+
+            return (
+                <div>
+                    <div className="example-section">
+                        <h2 style={{color: 'var(--color-neutral-0)', marginBottom: '16px'}}>Basic Slider</h2>
+                        <p style={{color: 'var(--color-neutral-40)', marginBottom: '24px'}}>
+                            A basic slider with default range (0-100). Try dragging or using keyboard arrows.
+                        </p>
+                        <Slider 
+                            value={basicValue} 
+                            onChange={setBasicValue}
+                            aria-label="Basic slider example"
+                        />
+                        <div className="value-display">
+                            Current Value: {basicValue}
+                        </div>
+                        <div className="example-code">
+{`<Slider 
+    value={basicValue} 
+    onChange={setBasicValue}
+    aria-label="Basic slider example"
+/>`}
+                        </div>
+                    </div>
+                    
+                    <div className="example-section">
+                        <h2 style={{color: 'var(--color-neutral-0)', marginBottom: '16px'}}>Custom Range with Labels</h2>
+                        <p style={{color: 'var(--color-neutral-40)', marginBottom: '24px'}}>
+                            A slider with custom min/max values and descriptive labels.
+                        </p>
+                        <Slider 
+                            min={500}
+                            max={1500}
+                            value={rangeValue} 
+                            onChange={setRangeValue}
+                            minLabel="$500" 
+                            maxLabel="$1,500"
+                            aria-label="Price range slider"
+                        />
+                        <div className="value-display">
+                            Selected Price: ${rangeValue}
+                        </div>
+                        <div className="example-code">
+{`<Slider 
+    min={500}
+    max={1500}
+    value={rangeValue} 
+    onChange={setRangeValue}
+    minLabel="$500" 
+    maxLabel="$1,500"
+/>`}
+                        </div>
+                    </div>
+                    
+                    <div className="example-section">
+                        <h2 style={{color: 'var(--color-neutral-0)', marginBottom: '16px'}}>Step Size Control</h2>
+                        <p style={{color: 'var(--color-neutral-40)', marginBottom: '24px'}}>
+                            A slider with custom step size for precise incremental control.
+                        </p>
+                        <Slider 
+                            min={0}
+                            max={100}
+                            step={5}
+                            value={stepValue} 
+                            onChange={setStepValue}
+                            minLabel="0%" 
+                            maxLabel="100%"
+                            aria-label="Percentage slider with 5% steps"
+                        />
+                        <div className="value-display">
+                            Progress: {stepValue}%
+                        </div>
+                        <div className="example-code">
+{`<Slider 
+    min={0}
+    max={100}
+    step={5}
+    value={stepValue} 
+    onChange={setStepValue}
+    minLabel="0%" 
+    maxLabel="100%"
+/>`}
+                        </div>
+                    </div>
+                    
+                    <div className="example-section">
+                        <h2 style={{color: 'var(--color-neutral-0)', marginBottom: '16px'}}>Disabled State</h2>
+                        <p style={{color: 'var(--color-neutral-40)', marginBottom: '24px'}}>
+                            A disabled slider showing the inactive visual state.
+                        </p>
+                        <Slider 
+                            value={disabledValue} 
+                            disabled={true} 
+                            minLabel="Min" 
+                            maxLabel="Max"
+                            aria-label="Disabled slider example"
+                        />
+                        <div className="value-display" style={{opacity: 0.6}}>
+                            Value: {disabledValue} (Disabled)
+                        </div>
+                        <div className="example-code">
+{`<Slider 
+    value={disabledValue} 
+    disabled={true} 
+    minLabel="Min" 
+    maxLabel="Max"
+/>`}
+                        </div>
+                    </div>
+
+                    <div className="example-section">
+                        <h2 style={{color: 'var(--color-neutral-0)', marginBottom: '16px'}}>Accessibility Features</h2>
+                        <p style={{color: 'var(--color-neutral-40)', marginBottom: '24px'}}>
+                            The slider component includes comprehensive keyboard support and ARIA attributes for screen readers.
+                        </p>
+                        <div style={{background: 'var(--color-neutral-95)', padding: '16px', borderRadius: '8px'}}>
+                            <h4 style={{marginTop: 0, color: 'var(--color-neutral-0)'}}>Keyboard Controls:</h4>
+                            <ul style={{color: 'var(--color-neutral-40)', margin: 0, paddingLeft: '20px'}}>
+                                <li><strong>Arrow Keys:</strong> Increase/decrease by step size</li>
+                                <li><strong>Home/End:</strong> Jump to minimum/maximum values</li>
+                                <li><strong>Page Up/Down:</strong> Large increments (10x step size)</li>
+                                <li><strong>Tab:</strong> Focus the slider for keyboard control</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<SliderExamples />);
+    </script>
+</body>
+</html> 

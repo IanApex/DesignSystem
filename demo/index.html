@@ -736,6 +736,68 @@
             );
         };
 
+        // Slider demo component for the component gallery
+        const SliderDemo = () => {
+            const [isHovered, setIsHovered] = useState(false);
+            
+            const getSliderColor = () => {
+                return isHovered ? 'var(--color-base-primary-50)' : 'var(--color-neutral-20)';
+            };
+            
+            return (
+                <div 
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '8px',
+                        pointerEvents: 'none'
+                    }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <div style={{
+                        position: 'relative',
+                        width: '200px',
+                        height: '4px',
+                        backgroundColor: getSliderColor(),
+                        borderRadius: '11px',
+                        transition: 'all 0.2s ease'
+                    }}>
+                        <div style={{
+                            position: 'absolute',
+                            height: '100%',
+                            width: '60%',
+                            backgroundColor: getSliderColor(),
+                            borderRadius: '11px',
+                            transition: 'all 0.2s ease'
+                        }} />
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '60%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '16px',
+                            height: '16px',
+                            backgroundColor: getSliderColor(),
+                            borderRadius: '50%',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            transition: 'all 0.2s ease'
+                        }} />
+                    </div>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        width: '200px',
+                        fontSize: '12px',
+                        color: 'var(--color-neutral-40)'
+                    }}>
+                        <span>Min</span>
+                        <span>Max</span>
+                    </div>
+                </div>
+            );
+        };
+
         const DesignSystemDemo = () => {
             // EchoPark Design System Colors from Figma
             const colorCategories = {
@@ -1261,6 +1323,168 @@
                                 </div>
                             </a>
                             
+                            {/* Box Input Component Card */}
+                            <a href="components/box-inputs.html" style={{
+                                textDecoration: 'none',
+                                color: 'inherit'
+                            }}>
+                                <div style={{
+                                    padding: '32px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '12px',
+                                    border: '1px solid #e2e8f0',
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                    transition: 'all 0.2s ease',
+                                    cursor: 'pointer',
+                                    position: 'relative'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                                }}
+                                >
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        marginBottom: '16px'
+                                    }}>
+                                        <h3 style={{
+                                            fontSize: '18px',
+                                            fontWeight: '600',
+                                            color: '#111827',
+                                            margin: '0',
+                                            flex: 1
+                                        }}>
+                                            Box Inputs
+                                        </h3>
+                                        <span style={{
+                                            fontSize: '14px',
+                                            color: '#6b7280'
+                                        }}>
+                                            →
+                                        </span>
+                                    </div>
+                                    <p style={{
+                                        fontSize: '14px',
+                                        color: '#6b7280',
+                                        marginBottom: '24px',
+                                        lineHeight: '1.5'
+                                    }}>
+                                        Interactive box input controls for option selection with multiple sizes and accessible states.
+                                    </p>
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '12px',
+                                        alignItems: 'center',
+                                        flexWrap: 'wrap'
+                                    }}>
+                                        <div style={{
+                                            fontFamily: 'var(--typography-font-family-base)',
+                                            fontWeight: 'var(--typography-font-weight-regular)',
+                                            fontSize: 'var(--typography-font-size-sm)',
+                                            height: '28px',
+                                            padding: '0 12px',
+                                            borderRadius: 'var(--border-radius-md)',
+                                            border: '1px solid var(--color-neutral-90)',
+                                            backgroundColor: 'var(--color-base-white)',
+                                            color: 'var(--color-base-parkGray0)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            pointerEvents: 'none',
+                                            fontSize: '12px'
+                                        }}>
+                                            Option A
+                                        </div>
+                                        <div style={{
+                                            fontFamily: 'var(--typography-font-family-base)',
+                                            fontWeight: 'var(--typography-font-weight-regular)',
+                                            fontSize: 'var(--typography-font-size-sm)',
+                                            height: '28px',
+                                            padding: '0 12px',
+                                            borderRadius: 'var(--border-radius-md)',
+                                            border: '2px solid var(--color-base-primary-50)',
+                                            backgroundColor: 'var(--color-base-white)',
+                                            color: 'var(--color-base-parkGray0)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            pointerEvents: 'none',
+                                            fontSize: '12px'
+                                        }}>
+                                            Selected
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            {/* Slider Component Card */}
+                            <a href="components/sliders.html" style={{
+                                textDecoration: 'none',
+                                color: 'inherit'
+                            }}>
+                                <div style={{
+                                    padding: '32px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '12px',
+                                    border: '1px solid #e2e8f0',
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                    transition: 'all 0.2s ease',
+                                    cursor: 'pointer',
+                                    position: 'relative'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                                }}
+                                >
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        marginBottom: '16px'
+                                    }}>
+                                        <h3 style={{
+                                            fontSize: '18px',
+                                            fontWeight: '600',
+                                            color: '#111827',
+                                            margin: '0',
+                                            flex: 1
+                                        }}>
+                                            Sliders
+                                        </h3>
+                                        <span style={{
+                                            fontSize: '14px',
+                                            color: '#6b7280'
+                                        }}>
+                                            →
+                                        </span>
+                                    </div>
+                                    <p style={{
+                                        fontSize: '14px',
+                                        color: '#6b7280',
+                                        marginBottom: '24px',
+                                        lineHeight: '1.5'
+                                    }}>
+                                        Interactive range slider components with keyboard support and accessibility features.
+                                    </p>
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '16px',
+                                        alignItems: 'flex-start'
+                                    }}>
+                                        {/* Demo slider with hover effect */}
+                                        <SliderDemo />
+                                    </div>
+                                </div>
+                            </a>
+                            
                             {/* Placeholder for future components */}
                             <div style={{
                                 padding: '32px',
@@ -1281,7 +1505,7 @@
                                     fontSize: '14px',
                                     marginBottom: '0'
                                 }}>
-                                    Forms, navigation, and other components coming soon...
+                                    Navigation, forms, and other components coming soon...
                                 </p>
                             </div>
                         </div>
